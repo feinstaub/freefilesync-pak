@@ -1,0 +1,12 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Name=FreeFileSync
+GenericName=Folder Synchronization Tool
+Comment=Visual folder comparison and synchronization
+Exec=FreeFileSync
+Terminal=false
+Icon=freefilesync
+Type=Application
+Categories=Utility;Archiving;System;
+Version=1.0
+
