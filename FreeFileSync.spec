@@ -27,6 +27,7 @@
 # in order to get a properly filled download page
 # (see for example https://build.opensuse.org/package/show/home:codeminister/FreeFileSync)
 Name:           FreeFileSync
+
 Summary:        Visual folder comparison and synchronization
 Version:        6.13
 Release:        1
@@ -34,8 +35,10 @@ License:        GPL-3.0+
 Group:          Productivity/Networking/System
 Url:            http://freefilesync.sourceforge.net/
 Source0:        FreeFileSync_%{version}_Source.zip
+
 # everything removed from zip except for zenxml folder:
 Source1:        zenXml_2.1-stripped.zip
+
 #Patch0:         0001-progress_indicator.cpp-fix-by-using-wxString-ctor.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 BuildRequires:  unzip
@@ -51,8 +54,13 @@ your time setting up and running backup jobs while having nice visual feedback a
 
 %prep
 # see http://www.rpm.org/max-rpm/s1-rpm-inside-macros.html
-%setup -T -b 0 -c %{name}-%{version}      # unpack Source0 (-T -b 0) to given directory (-c)
-%setup -T -a 1 -c %{name}-%{version} -D   # unpack Source1 (-T -a 1) to given directory (-c) but do not delete it (-D)
+
+# unpack Source0 (-T -b 0) to given directory (-c)
+%setup -T -b 0 -c %{name}-%{version}
+
+# unpack Source1 (-T -a 1) to given directory (-c) but do not delete it (-D)
+%setup -T -a 1 -c %{name}-%{version} -D
+
 %define _use_internal_dependency_generator 0
 %define __find_requires %wx_requires
 
