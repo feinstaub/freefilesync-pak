@@ -22,10 +22,16 @@ Build service info
 
 osc usage:
 ```
+# local build
+osc build openSUSE_13.2 x86_64
+
+# one-time checkout of empty project
 osc co home:codeminister/FreeFileSync-6.13 -o .
 
+# add all files
 osc add *
 
+# commit to server
 osc commit
 ```
 

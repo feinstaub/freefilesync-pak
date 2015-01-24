@@ -34,14 +34,15 @@ License:        GPL-3.0+
 Group:          Productivity/Networking/System
 Url:            http://freefilesync.sourceforge.net/
 Source0:        FreeFileSync_%{version}_Source.zip
-#Source1:        ChangeLog
+# everything removed from zip except for zenxml folder:
+Source1:        zenXml_2.1-stripped.zip
 #Patch0:         0001-progress_indicator.cpp-fix-by-using-wxString-ctor.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 BuildRequires:  unzip
-BuildRequires:  gcc-c++ >= 4.8.3
+BuildRequires:  gcc-c++ >= 4.8
 BuildRequires:  boost-devel >= 1.54
 BuildRequires:  wxWidgets-3_0-devel
-#PreReq:         %fillup_prereq
+#PreReq:         %%fillup_prereq
 
 %description
 FreeFileSync is a free Open Source software that helps you synchronize files
@@ -49,13 +50,15 @@ and synchronize folders for Windows, Linux and Mac OS X. It is designed to save
 your time setting up and running backup jobs while having nice visual feedback along the way.
 
 %prep
-%setup -q -c %{name}-%{version}
+# see http://www.rpm.org/max-rpm/s1-rpm-inside-macros.html
+%setup -T -b 0 -c %{name}-%{version}      # unpack Source0 (-T -b 0) to given directory (-c)
+%setup -T -a 1 -c %{name}-%{version} -D   # unpack Source1 (-T -a 1) to given directory (-c) but do not delete it (-D)
 %define _use_internal_dependency_generator 0
 %define __find_requires %wx_requires
 
 # patches http://www.redhat.com/support/resources/howto/RH-sendmail-HOWTO/x192.html
 # https://fedoraproject.org/wiki/How_to_create_an_RPM_package
-# %patch0 -p1
+# %%patch0 -p1
 
 %build
 cd FreeFileSync/Source
