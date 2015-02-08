@@ -18,15 +18,18 @@
 
 # No   Date    Author           Changelog
 # --   ----    ------           ---------
-#  1   2013    codeminister     Copied from https://build.opensuse.org/package/show/home:hcooh/FreeFileSync
-#  2   2013    codeminister     Modified since FreeFileSync v5.23 to work with openSUSE 12.3, 64 and 32 Bit, and later
-#  3   2013    codeminister     Modified for FreeFileSync 5.23 on openSUSE 13.1
+#  5   2015    codeminister     make package name lowercase;
+#                               took some ideas from https://build.opensuse.org/package/show/network/FreeFileSync
+#                               remove the historic _use_internal_dependency_generator 0 (now automatic runtime dependency detection should work)
 #  4   2015    codeminister     FreeFileSync 6.13 for openSUSE 13.2
+#  3   2013    codeminister     Modified for FreeFileSync 5.23 on openSUSE 13.1
+#  2   2013    codeminister     Modified since FreeFileSync v5.23 to work with openSUSE 12.3, 64 and 32 Bit, and later
+#  1   2013    codeminister     Copied from https://build.opensuse.org/package/show/home:hcooh/FreeFileSync
 
 # The 'Name' must match the openSUSE build service package name
 # in order to get a properly filled download page
-# (see for example https://build.opensuse.org/package/show/home:codeminister/FreeFileSync)
-Name:           FreeFileSync
+# (see for example https://build.opensuse.org/package/show/home:codeminister/freefilesync-6.13)
+Name:           freefilesync
 
 Summary:        Visual folder comparison and synchronization
 Version:        6.13
@@ -39,18 +42,35 @@ Source0:        FreeFileSync_%{version}_Source.zip
 # everything removed from zip except for zenxml folder:
 Source1:        zenXml_2.1-stripped.zip
 
+# not needed:
 #Patch0:         0001-progress_indicator.cpp-fix-by-using-wxString-ctor.patch
+
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 BuildRequires:  unzip
 BuildRequires:  gcc-c++ >= 4.8
 BuildRequires:  boost-devel >= 1.54
 BuildRequires:  wxWidgets-3_0-devel
+
+# not needed:
 #PreReq:         %%fillup_prereq
+
+# otherwise we get something like
+# `FreeFileSync: error while loading shared libraries: libwx_gtk2u_aui-suse-3.0.so.0: cannot open shared object file: No such file or directory`
+# (but only on the console)
+# Requires:       libwx_gtk2u_aui-suse-3_0-0
+# Requires:       libwx_gtk2u_html-suse-3_0-0
+# Requires:       libwx_gtk2u_adv-suse-3_0-0
+# Requires:       libwx_baseu_net-suse-3_0-0
+# ... not needed / Was caused by:
+# %%define _use_internal_dependency_generator 0
+# %%define __find_requires %%wx_requires
+
 
 %description
 FreeFileSync is a free Open Source software that helps you synchronize files
 and synchronize folders for Windows, Linux and Mac OS X. It is designed to save
 your time setting up and running backup jobs while having nice visual feedback along the way.
+
 
 %prep
 # see http://www.rpm.org/max-rpm/s1-rpm-inside-macros.html
@@ -61,27 +81,34 @@ your time setting up and running backup jobs while having nice visual feedback a
 # unpack Source1 (-T -a 1) to given directory (-c) but do not delete it (-D)
 %setup -T -a 1 -c %{name}-%{version} -D
 
-%define _use_internal_dependency_generator 0
-%define __find_requires %wx_requires
-
 # patches http://www.redhat.com/support/resources/howto/RH-sendmail-HOWTO/x192.html
 # https://fedoraproject.org/wiki/How_to_create_an_RPM_package
 # %%patch0 -p1
 
-%build
-cd FreeFileSync/Source
 
+%build
+# must be camel case:
+cd FreeFileSync/Source
 make %{?_smp_mflags} BUILD=FreeFileSync
 
+
 %install
+# must be camel case:
 cd FreeFileSync/Source
 %make_install
+
+# found on https://build.opensuse.org/package/show?project=network&package=FreeFileSync:
+## del unneeded changelog.gz, why?
+#rm -r ${RPM_BUILD_ROOT}%%{_datadir}/doc/%%{name}
+
 
 %clean
 rm -rf %{buildroot}
 
+
 %files
 %defattr(-,root,root,-)
+# todo: must be camel case?
 %{_bindir}/FreeFileSync
 %{_datadir}/FreeFileSync
 %doc /usr/share/doc/FreeFileSync

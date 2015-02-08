@@ -18,15 +18,16 @@ Source information
 
 Build service info
 ==================
-* URL: https://build.opensuse.org/package/show/home:codeminister/FreeFileSync
+* URL: https://build.opensuse.org/package/show/home:codeminister/freefilesync-6.13
 
 osc usage:
 ```
 # local build
 osc build openSUSE_13.2 x86_64
+# intermediate results see: /var/tmp/build-root/openSUSE_13.2-x86_64/home/abuild/rpmbuild/
 
 # one-time checkout of empty project
-osc co home:codeminister/FreeFileSync-6.13 -o .
+osc co home:codeminister/freefilesync-6.13 -o .
 
 # add all files
 osc add *
@@ -34,6 +35,9 @@ osc add *
 # commit to server
 osc commit
 ```
+
+for current time in freefilesync.changes
+`date --utc`
 
 
 TODO
