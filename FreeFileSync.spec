@@ -18,9 +18,10 @@
 
 # No   Date    Author           Changelog
 # --   ----    ------           ---------
-#  5   2015    codeminister     make package name lowercase;
-#                               took some ideas from https://build.opensuse.org/package/show/network/FreeFileSync
-#                               remove the historic _use_internal_dependency_generator 0 (now automatic runtime dependency detection should work)
+#  5   2015    codeminister     - took some ideas from https://build.opensuse.org/package/show/network/FreeFileSync
+#                                   - zenXml_2.1-stripped.zip was copied from here to 'network/FreeFileSync'
+#                                   - 'network/FreeFileSync' also contains RealtimeSync => better use 'network/FreeFileSync' now
+#                               - remove the historic _use_internal_dependency_generator 0 (now automatic runtime dependency detection should work)
 #  4   2015    codeminister     FreeFileSync 6.13 for openSUSE 13.2
 #  3   2013    codeminister     Modified for FreeFileSync 5.23 on openSUSE 13.1
 #  2   2013    codeminister     Modified since FreeFileSync v5.23 to work with openSUSE 12.3, 64 and 32 Bit, and later
@@ -29,7 +30,7 @@
 # The 'Name' must match the openSUSE build service package name
 # in order to get a properly filled download page
 # (see for example https://build.opensuse.org/package/show/home:codeminister/freefilesync-6.13)
-Name:           freefilesync
+Name:           FreeFileSync
 
 Summary:        Visual folder comparison and synchronization
 Version:        6.13
@@ -37,7 +38,7 @@ Release:        1
 License:        GPL-3.0+
 Group:          Productivity/Networking/System
 Url:            http://freefilesync.sourceforge.net/
-Source0:        FreeFileSync_%{version}_Source.zip
+Source0:        %{name}_%{version}_Source.zip
 
 # everything removed from zip except for zenxml folder:
 Source1:        zenXml_2.1-stripped.zip
@@ -108,10 +109,9 @@ rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root,-)
-# todo: must be camel case?
-%{_bindir}/FreeFileSync
-%{_datadir}/FreeFileSync
-%doc /usr/share/doc/FreeFileSync
+%{_bindir}/%{name}
+%{_datadir}/%{name}
+%doc /usr/share/doc/%{name}
 %doc LICENSE
 
 %changelog

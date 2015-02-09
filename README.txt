@@ -1,3 +1,12 @@
+Latest info
+===========
+The build recipies were merged to here:
+
+https://build.opensuse.org/package/show/network/FreeFileSync
+
+So there you find the latest maintained build of FreeFileSync.
+
+
 Source information
 ==================
 * FreeFileSync_6.13_Source.zip
