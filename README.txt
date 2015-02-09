@@ -27,7 +27,7 @@ Source information
 
 Build service info
 ==================
-* URL: https://build.opensuse.org/package/show/home:codeminister/freefilesync-6.13
+* URL: https://build.opensuse.org/package/show/home:codeminister/FreeFileSync
 
 osc usage:
 ```
@@ -35,7 +35,7 @@ osc usage:
 osc build openSUSE_13.2 x86_64
 # intermediate results see: /var/tmp/build-root/openSUSE_13.2-x86_64/home/abuild/rpmbuild/
 
-# one-time checkout of empty project
+# one-time checkout of empty project (does not exist anymore)
 osc co home:codeminister/freefilesync-6.13 -o .
 
 # add all files
